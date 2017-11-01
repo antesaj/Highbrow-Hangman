@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -21,15 +22,19 @@ import javafx.scene.layout.*;
 
 
 public class PlayHangman extends Application {
+	
+	private static String TITLE = "Highbrow Hangman 1.0";
 
 	public static void main(String[] args) {
-		launch(args);
+		
+			launch(args);
+		
 	}
 	
 	@Override
 	public void start(Stage primaryStage) {
 		
-		primaryStage.setTitle("Highbrow Hangman");
+		primaryStage.setTitle(TITLE);
 		Image backgroundImage = new Image("background_image.jpg");
 		BackgroundImage bg = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, new BackgroundSize(800,800,true,true,true,true));
@@ -43,14 +48,23 @@ public class PlayHangman extends Application {
 		
 		Button newGame = new Button("New Game");
 		newGame.setMinWidth(100);
+		
 		Button exitButton = new Button("Exit");
+		// EXIT BUTTON: CLOSES APPLICATION
+		exitButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+				new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent e) {
+				primaryStage.close();
+			}
+		});
 		exitButton.setMinWidth(100);
+		
 		centerPane.getChildren().add(newGame);
 		centerPane.getChildren().add(exitButton);
 		centerPane.setHgap(10);
 		pane.setCenter(centerPane);
 		
-		Text titleText = new Text("Highbrow Hangman 1.0");
+		Text titleText = new Text(TITLE);
 		// TODO: Extrabold isn't actually doing anything.
 		titleText.setFont(Font.font("Vivaldi", FontWeight.EXTRA_BOLD, 60));
 		titleText.setEffect(new DropShadow(100, Color.BLACK));
