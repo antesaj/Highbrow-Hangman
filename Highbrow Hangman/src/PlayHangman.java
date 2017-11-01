@@ -1,6 +1,4 @@
 
-import java.io.InputStream;
-
 import javafx.application.Application;
 
 import javafx.scene.Scene;
@@ -13,19 +11,12 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.*;
 
 
 
@@ -40,7 +31,6 @@ public class PlayHangman extends Application {
 		
 		primaryStage.setTitle("Highbrow Hangman");
 		Image backgroundImage = new Image("background_image.jpg");
-		ImagePattern background = new ImagePattern(backgroundImage);
 		BackgroundImage bg = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, new BackgroundSize(800,800,true,true,true,true));
 		
@@ -70,7 +60,6 @@ public class PlayHangman extends Application {
 		pane.setTop(topPane);
 		
 		Scene scene = new Scene(pane, 800, 800);
-		scene.setFill(background);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
