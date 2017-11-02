@@ -47,10 +47,17 @@ public class PlayHangman extends Application {
 		centerPane.setAlignment(Pos.CENTER);
 		
 		Button newGame = new Button("New Game");
+		// NEW GAME BUTTON: Begins new instance of hangman
+		newGame.addEventHandler(MouseEvent.MOUSE_CLICKED,
+				new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent e) {
+				Game game = new Game();
+			}
+		});
 		newGame.setMinWidth(100);
 		
 		Button exitButton = new Button("Exit");
-		// EXIT BUTTON: CLOSES APPLICATION
+		// EXIT BUTTON: Closes Application
 		exitButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
 				new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent e) {
@@ -77,5 +84,6 @@ public class PlayHangman extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+	
 	
 }
