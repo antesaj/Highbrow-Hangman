@@ -9,9 +9,11 @@ public class LitDictionary extends HashMap {
 	 * of classic novel titles
 	 */
 	
-	public LitDictionary() {
+	public LitDictionary(String pString) {
 		
 		dictionary = new HashMap<>();
+		
+		if (pString == "novels") {
 		
 		//TODO: add more entries
 		dictionary.put(0, "A Tale of Two Cities");
@@ -40,6 +42,10 @@ public class LitDictionary extends HashMap {
 		dictionary.put(23, "Gullivers Travels");
 		dictionary.put(24, "Don Quixote");
 		dictionary.put(25, "Pride and Prejudice");
+		
+		} else if (pString == "starwars") {
+			
+		}// TODO: Make dictionary for starwars and possibly some other themes.
 		
 	}
 	

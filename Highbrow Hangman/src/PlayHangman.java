@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
@@ -47,6 +46,21 @@ public class PlayHangman extends Application {
 		centerPane.setAlignment(Pos.CENTER);
 		
 		Button newGame = new Button("New Game");
+		
+		newGame.setStyle("-fx-background-color: \r\n" + 
+				"        linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),\r\n" + 
+				"        linear-gradient(#020b02, #3a3a3a),\r\n" + 
+				"        linear-gradient(#b9b9b9 0%, #c2c2c2 20%, #afafaf 80%, #c8c8c8 100%),\r\n" + 
+				"        linear-gradient(#f5f5f5 0%, #dbdbdb 50%, #cacaca 51%, #d7d7d7 100%);\r\n" + 
+				"    -fx-background-insets: 0,1,4,5;\r\n" + 
+				"    -fx-background-radius: 9,8,5,4;\r\n" + 
+				"    -fx-padding: 15 30 15 30;\r\n" + 
+				"    -fx-font-family: \"Helvetica\";\r\n" + 
+				"    -fx-font-size: 18px;\r\n" + 
+				"    -fx-font-weight: bold;\r\n" + 
+				"    -fx-text-fill: #333333;\r\n" + 
+				"    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);");
+		
 		// NEW GAME BUTTON: Begins new instance of hangman
 		newGame.addEventHandler(MouseEvent.MOUSE_CLICKED,
 				new EventHandler<MouseEvent>() {
@@ -54,9 +68,23 @@ public class PlayHangman extends Application {
 				Game game = new Game();
 			}
 		});
-		newGame.setMinWidth(100);
+		newGame.setMinWidth(150);
 		
 		Button exitButton = new Button("Exit");
+		exitButton.setStyle("-fx-background-color: \r\n" + 
+				"        linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),\r\n" + 
+				"        linear-gradient(#020b02, #3a3a3a),\r\n" + 
+				"        linear-gradient(#b9b9b9 0%, #c2c2c2 20%, #afafaf 80%, #c8c8c8 100%),\r\n" + 
+				"        linear-gradient(#f5f5f5 0%, #dbdbdb 50%, #cacaca 51%, #d7d7d7 100%);\r\n" + 
+				"    -fx-background-insets: 0,1,4,5;\r\n" + 
+				"    -fx-background-radius: 9,8,5,4;\r\n" + 
+				"    -fx-padding: 15 30 15 30;\r\n" + 
+				"    -fx-font-family: \"Helvetica\";\r\n" + 
+				"    -fx-font-size: 18px;\r\n" + 
+				"    -fx-font-weight: bold;\r\n" + 
+				"    -fx-text-fill: #333333;\r\n" + 
+				"    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);");
+		
 		// EXIT BUTTON: Closes Application
 		exitButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
 				new EventHandler<MouseEvent>() {
@@ -64,7 +92,7 @@ public class PlayHangman extends Application {
 				primaryStage.close();
 			}
 		});
-		exitButton.setMinWidth(100);
+		exitButton.setMinWidth(150);
 		
 		centerPane.getChildren().add(newGame);
 		centerPane.getChildren().add(exitButton);
@@ -83,6 +111,7 @@ public class PlayHangman extends Application {
 		Scene scene = new Scene(pane, 800, 800);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
 	}
 	
 	
