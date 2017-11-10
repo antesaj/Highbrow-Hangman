@@ -23,13 +23,13 @@ public class LitDictionary extends HashMap {
 		dictionary.put(4, "East of Eden");
 		dictionary.put(5, "Grapes of Wrath");
 		dictionary.put(6, "Brave New World");
-		dictionary.put(7, "Fahrenheit 451");
+		dictionary.put(7, "Emma");
 		dictionary.put(8, "Jane Eyre");
 		dictionary.put(9, "Sense and Sensibility");
 		dictionary.put(10, "Nineteen Eighty Four");
 		dictionary.put(11, "The Catcher in the Rye");
 		dictionary.put(12, "Of Mice and Men");
-		dictionary.put(13, "The Count of Monte Cristo");
+		dictionary.put(13, "The Three Muskateers");
 		dictionary.put(14, "Frankenstein");
 		dictionary.put(15, "Lord of the Flies");
 		dictionary.put(16, "The Scarlet Letter");

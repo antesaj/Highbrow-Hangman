@@ -1,5 +1,4 @@
 
-import javafx.application.Application;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -7,6 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -25,28 +27,36 @@ public class Game {
 	
 	private Stage gameStage;
 	
-	private Circle head;
-	private Line body, leftArm, rightArm, leftLeg, rightLeg;
+	private static Circle head;
+	private static Line body, leftArm, rightArm, leftLeg, rightLeg;
+	private static int count = 6;
+	private boolean running = true;
 	
 	private Button a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z;
+	private static ArrayList<Text> phraseLetters;
 
 	public Game() {
+		
 		
 		this.init();
 		this.play();
 		
 	}
 	
+	/*
+	 * play() contains the logic for the gameplay.
+	 */
+	
 	public void play() {
 		// TODO: implement - should contain gameplay logic. May need more methods.
 		// TODO: Individual class for the phrase. Below is starter code for this class, remove from play() method.
-		LitDictionary dictionary = new LitDictionary("novels");
-		String phrase = dictionary.getTitle().toUpperCase();
-		String[] array = phrase.split(" ", 5);
-		for (int i = 0; i < array.length; i++) {
-			System.out.println(array[i]);
-		}
+		
 	}
+	
+	/*
+	 * init() initializes the GUI for the game.
+	 * It creates a new window for Hangman gameplay.
+	 */
 	
 	public void init() {
 		gameStage = new Stage();
@@ -98,50 +108,62 @@ public class Game {
 		
 		letters.getChildren().addAll(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z);
 		gamePane.setBottom(letters);
+		gamePane.setMargin(letters, new Insets(0,0,20,0));
 		
-		// Set up area for phrase to show
-		//TilePane phrase = new TilePane();
-		//phrase.setAlignment(Pos.CENTER);
-		//phrase.getChildren().add(new Text("___ ___ ___ ___ ___ ___ ___"));
-		//gamePane.setLeft(phrase);
 		
+		// Set up phrase section to be filled in by gameplay.
+
+		LitDictionary dictionary = new LitDictionary("novels");
+		String phrase = dictionary.getTitle();
+		phraseLetters = new ArrayList<>();
+		for (int i = 0; i < phrase.length(); i++) {
+			phraseLetters.add(new Text(phrase.substring(i, i+1)));
+		}
+		TilePane phrasePane = new TilePane();
+		phrasePane.setAlignment(Pos.CENTER);
+		for (int i = 0; i < phraseLetters.size(); i++) {
+			phrasePane.getChildren().add(phraseLetters.get(i));
+		}
+		setPhraseStyle();
+		gamePane.setTop(phrasePane);
+		gamePane.setMargin(phrasePane, new Insets(50,0,0,0));
 		// Set up the pane for the hangman body
 		Pane gallowPane = new Pane();
 		
 		// Head
-		head = new Circle(410,340,30);
+		head = new Circle(410,245,30);
 		gallowPane.getChildren().add(head);
-		head.setVisible(true);
+		head.setVisible(false);
 		
 		// Body
-		body = new Line(410, 400, 410, 550);
+		body = new Line(410, 245, 410, 400); //startX, startY, endX, endY
 		body.setStrokeWidth(15);
 		gallowPane.getChildren().add(body);
-		body.setVisible(true);
+		body.setVisible(false);
 		
 		//Left Arm
-		leftArm = new Line(410, 390, 345, 450);
+		leftArm = new Line(410, 270, 390, 330);
 		leftArm.setStrokeWidth(15);
 		gallowPane.getChildren().add(leftArm);
-		leftArm.setVisible(true);
+		leftArm.setVisible(false);
 		
 		//Right Arm
-		rightArm = new Line(410, 390, 475, 450);
+		rightArm = new Line(410, 270, 430, 330);
 		rightArm.setStrokeWidth(15);
 		gallowPane.getChildren().add(rightArm);
-		rightArm.setVisible(true);
+		rightArm.setVisible(false);
 		
 		//Left Leg
-		leftLeg = new Line(410, 550, 385, 675);
+		leftLeg = new Line(410, 400, 385, 500);
 		leftLeg.setStrokeWidth(15);
 		gallowPane.getChildren().add(leftLeg);
-		leftLeg.setVisible(true);
+		leftLeg.setVisible(false);
 		
 		//Right Leg
-		rightLeg = new Line(410, 550, 435, 675);
+		rightLeg = new Line(410, 400, 435, 500);
 		rightLeg.setStrokeWidth(15);
 		gallowPane.getChildren().add(rightLeg);
-		rightLeg.setVisible(true);
+		rightLeg.setVisible(false);
 		
 		gamePane.setCenter(gallowPane);
 		
@@ -150,7 +172,11 @@ public class Game {
 		gameStage.show();
 	}
 	
-	// Styling for the letters at the bottom of the screen.
+	/*
+	 * setButtonStyle will edit the style of the passed Button.
+	 * This is specifically for the letter buttons for the bottom
+	 * of the screen.
+	 */
 	
 	public static void setButtonStyle(Button x) {
 		x.setMinHeight(56);
@@ -167,7 +193,11 @@ public class Game {
 				"    -fx-font-weight: bold;\r\n" + 
 				"    -fx-font-size: 20px;");
 		
-		x.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET,
+		/*
+		 * what happens when a letter is clicked
+		 */
+		
+		x.addEventHandler(MouseEvent.MOUSE_CLICKED,
 				new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent e) {
 				x.setStyle("-fx-background-color: \r\n" + 
@@ -175,26 +205,66 @@ public class Game {
 						"        #9d4024,\r\n" + 
 						"        #d86e3a,\r\n" + 
 						"        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);");
+				
+				boolean inPhrase = isInPhrase(x);
+				if (inPhrase) {
+					for (Text a : phraseLetters) {
+						if (a.getText().equalsIgnoreCase(x.getText())) {
+							a.setVisible(true);
+						}
+					}
+				} else {
+					count--;
+					if (count == 5) {
+						showHead();
+					} else if (count == 4) {
+						showBody();
+					} else if (count == 3) {
+						showLeftArm();
+					} else if (count == 2) {
+						showRightArm();
+					} else if (count == 1) {
+						showLeftLeg();
+					} else if (count == 0) {
+						showRightLeg();
+						System.out.println("You lose.");
+						count = 6;
+					}
+				} // end if else sequence for letter checking
+				
+				
 				}
 			});
 		
-		x.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET,
-				new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent e) {
-				x.setStyle("-fx-padding: 8 15 15 15;\r\n" + 
-						"    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\r\n" + 
-						"    -fx-background-radius: 8;\r\n" + 
-						"    -fx-background-color: \r\n" + 
-						"        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),\r\n" + 
-						"        #9d4024,\r\n" + 
-						"        #d86e3a,\r\n" + 
-						"        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);\r\n" + 
-						"    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\r\n" + 
-						"    -fx-font-weight: bold;\r\n" + 
-						"    -fx-font-size: 20px;");
-				}
-			});
+	}
+	
+	/*
+	 * Set letter style for phrase letters
+	 */
+	
+	public static void setPhraseStyle() {
+		for (Text x : phraseLetters) {
+			if (!(x.equals(" "))) {
+				x.setVisible(false);
+			}
+		} 
+		for (Text x : phraseLetters) {
+			x.setFont(Font.font("Algerian", FontWeight.EXTRA_BOLD, 45));
+			x.setFill(Color.WHITE);
+		}
 		
+	}
+	
+	/*
+	 * Check if letter is in phrase
+	 */
+	public static boolean isInPhrase(Button x) {
+		for (Text a : phraseLetters) {
+			if (x.getText().equalsIgnoreCase(a.getText())) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	
@@ -202,27 +272,27 @@ public class Game {
 	// for wrong answers. This functionality will be
 	// in the play() method.
 	
-	public void showHead() {
+	public static void showHead() {
 		head.setVisible(true);
 	}
 	
-	public void showBody() {
+	public static void showBody() {
 		body.setVisible(true);
 	}
 	
-	public void showLeftArm() {
+	public static void showLeftArm() {
 		leftArm.setVisible(true);
 	}
 	
-	public void showRightArm() {
+	public static void showRightArm() {
 		rightArm.setVisible(true);
 	}
 	
-	public void showLeftLeg() {
+	public static void showLeftLeg() {
 		leftLeg.setVisible(true);
 	}
 	
-	public void showRightLeg() {
+	public static void showRightLeg() {
 		rightLeg.setVisible(true);
 	}
 	
