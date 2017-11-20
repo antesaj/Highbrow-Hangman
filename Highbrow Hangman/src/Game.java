@@ -1,5 +1,3 @@
-
-
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
@@ -29,15 +27,17 @@ public class Game {
 	
 	private static Circle head;
 	private static Line body, leftArm, rightArm, leftLeg, rightLeg;
-	private static int count = 6;
+	private static int count;
 	private boolean running = true;
+        private String choice, phrase;
 	
 	private Button a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z;
 	private static ArrayList<Text> phraseLetters;
 
-	public Game() {
+	public Game(String choice) {
 		
-		
+                this.choice = choice;
+		count = 6;
 		this.init();
 		this.play();
 		
@@ -73,7 +73,7 @@ public class Game {
 		// Set up letter boxes on the bottom
 		TilePane letters = new TilePane();
 		letters.setPrefColumns(13);
-		letters.setPrefRows(3);
+		letters.setPrefRows(2);
 		letters.setHgap(5);
 		letters.setVgap(5);
 		letters.setAlignment(Pos.CENTER);
@@ -110,11 +110,16 @@ public class Game {
 		gamePane.setBottom(letters);
 		gamePane.setMargin(letters, new Insets(0,0,20,0));
 		
-		
+		LitDictionary dictionary1 = new LitDictionary();
+                StarWarsNames dictionary2 = new StarWarsNames();
 		// Set up phrase section to be filled in by gameplay.
-
-		LitDictionary dictionary = new LitDictionary("novels");
-		String phrase = dictionary.getTitle();
+                switch(choice){
+                    case "Classic Novel Titles": phrase = dictionary1.getTitle();
+                    
+                    case "Star Wars Names": phrase = dictionary2.getTitle();
+		
+                }
+                
 		phraseLetters = new ArrayList<>();
 		for (int i = 0; i < phrase.length(); i++) {
 			phraseLetters.add(new Text(phrase.substring(i, i+1)));
@@ -124,9 +129,11 @@ public class Game {
 		for (int i = 0; i < phraseLetters.size(); i++) {
 			phrasePane.getChildren().add(phraseLetters.get(i));
 		}
+                
 		setPhraseStyle();
+                
 		gamePane.setTop(phrasePane);
-		gamePane.setMargin(phrasePane, new Insets(50,0,0,0));
+		gamePane.setMargin(phrasePane, new Insets(75,0,0,0));
 		// Set up the pane for the hangman body
 		Pane gallowPane = new Pane();
 		
@@ -166,7 +173,7 @@ public class Game {
 		rightLeg.setVisible(false);
 		
 		gamePane.setCenter(gallowPane);
-		
+		gamePane.setMargin(gallowPane, new Insets(-25, 0, 0, 0));
 		Scene gameScene = new Scene(gamePane, 800, 800);
 		gameStage.setScene(gameScene);
 		gameStage.show();
@@ -228,7 +235,7 @@ public class Game {
 					} else if (count == 0) {
 						showRightLeg();
 						System.out.println("You lose.");
-						count = 6;
+						count = 0;
 					}
 				} // end if else sequence for letter checking
 				
@@ -244,7 +251,7 @@ public class Game {
 	
 	public static void setPhraseStyle() {
 		for (Text x : phraseLetters) {
-			if (!(x.equals(" "))) {
+			if (!(x.getText().equals(" "))) {
 				x.setVisible(false);
 			}
 		} 
