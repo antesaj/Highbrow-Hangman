@@ -1,3 +1,5 @@
+package playhangman;
+
 import javafx.application.Application;
 
 import javafx.scene.Scene;
@@ -17,8 +19,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.layout.*;
 import javafx.scene.control.ChoiceBox;
-
-
+import javafx.collections.FXCollections;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.ChangeListener;
 
 public class PlayHangman extends Application {
 	
@@ -66,15 +69,22 @@ public class PlayHangman extends Application {
 		newGame.addEventHandler(MouseEvent.MOUSE_CLICKED,
 				new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent e) {
+                                if(choice != null){
 				Game game = new Game(choice);
+                                }
 			}
 		});
 		newGame.setMinWidth(150);
-                ChoiceBox<String> choiceBox = new ChoiceBox<>();
-                choiceBox.getItems().addAll("Classic Novel Titles", "Star Wars Names");
+                
+                
+                final String[] theme = new String[]{null,"Classic Novel Titles",
+                        "Star Wars Names"};
+                ChoiceBox<String> choiceBox = new ChoiceBox<>(FXCollections.
+                        observableArrayList("Choose a Theme","Classic Novel Titles",
+                        "Star Wars Names"));
                 
                 // Sets Default Values
-                choiceBox.setValue("Classic Novel Titles");
+                choiceBox.setValue("Choose a Theme");
 		
 		choiceBox.setStyle("-fx-background-color: \r\n" + 
 				"        linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),\r\n" + 
@@ -91,12 +101,13 @@ public class PlayHangman extends Application {
 				"    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);");
 		
 		// NEW GAME BUTTON: Begins new instance of hangman
-		choiceBox.addEventHandler(MouseEvent.MOUSE_CLICKED,
-				new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent e) {
-				choice = choiceBox.getValue();
-			}
-		});
+		choiceBox.getSelectionModel().selectedIndexProperty()
+                        .addListener(new ChangeListener<Number>(){
+                    public void changed(ObservableValue ov, Number value, Number new_value){
+                    
+                        choice = theme[new_value.intValue()];
+                    }
+                });
 		choiceBox.setMinWidth(150);  
                 
 		

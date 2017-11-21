@@ -1,3 +1,11 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package playhangman;
+
+
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
@@ -35,8 +43,7 @@ public class Game {
 	private static ArrayList<Text> phraseLetters;
 
 	public Game(String choice) {
-		
-                this.choice = choice;
+		this.choice = choice;
 		count = 6;
 		this.init();
 		this.play();
@@ -109,14 +116,15 @@ public class Game {
 		letters.getChildren().addAll(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z);
 		gamePane.setBottom(letters);
 		gamePane.setMargin(letters, new Insets(0,0,20,0));
-		
 		LitDictionary dictionary1 = new LitDictionary();
                 StarWarsNames dictionary2 = new StarWarsNames();
 		// Set up phrase section to be filled in by gameplay.
                 switch(choice){
                     case "Classic Novel Titles": phrase = dictionary1.getTitle();
+                    break;
                     
                     case "Star Wars Names": phrase = dictionary2.getTitle();
+                    break;
 		
                 }
                 
