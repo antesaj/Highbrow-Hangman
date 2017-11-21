@@ -44,7 +44,6 @@ public class Game {
 
 	public Game(String choice) {
 		this.choice = choice;
-                System.out.println(this.choice);
 		count = 6;
 		this.init();
 		this.play();
@@ -117,7 +116,6 @@ public class Game {
 		letters.getChildren().addAll(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z);
 		gamePane.setBottom(letters);
 		gamePane.setMargin(letters, new Insets(0,0,20,0));
-		System.out.println(choice);
 		LitDictionary dictionary1 = new LitDictionary();
                 StarWarsNames dictionary2 = new StarWarsNames();
 		// Set up phrase section to be filled in by gameplay.

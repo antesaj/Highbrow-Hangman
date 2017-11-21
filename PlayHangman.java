@@ -106,7 +106,6 @@ public class PlayHangman extends Application {
                     public void changed(ObservableValue ov, Number value, Number new_value){
                     
                         choice = theme[new_value.intValue()];
-                        System.out.println(choice);
                     }
                 });
 		choiceBox.setMinWidth(150);  
