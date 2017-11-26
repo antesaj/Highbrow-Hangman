@@ -27,7 +27,7 @@ public class LitDictionary extends HashMap {
 		dictionary.put(10, "Nineteen Eighty Four");
 		dictionary.put(11, "The Catcher in the Rye");
 		dictionary.put(12, "Of Mice and Men");
-		dictionary.put(13, "The Count of Monte Cristo");
+		dictionary.put(13, "Don Quixote");
 		dictionary.put(14, "Frankenstein");
 		dictionary.put(15, "Lord of the Flies");
 		dictionary.put(16, "The Scarlet Letter");

@@ -1,3 +1,10 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
@@ -5,7 +12,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -28,7 +34,7 @@ import javafx.scene.layout.*;
 
 public class Game {
 	
-    private Stage gameStage;
+    private static Stage gameStage;
 	
     //Body Parts
     private static Circle head;
@@ -155,7 +161,7 @@ public class Game {
         //TilePane. Two TilePanes to be Stacked.
         phraseUScore = new TilePane();
         phraseUScore.setAlignment(Pos.CENTER); 
-        phraseUScore.setHgap(10);
+        phraseUScore.setHgap(13);
         
         
         //TilePane. Add ArrayList to TilePane
@@ -235,7 +241,7 @@ public class Game {
 	 */
 	
     public static void setButtonStyle(Button x) {
-    	Media sound = new Media(new File("losehangman.mp3").toURI().toString());
+	Media sound = new Media(new File("losehangman.mp3").toURI().toString());
     	MediaPlayer mediaPlayer = new MediaPlayer(sound);
         x.setMinHeight(56);
 	x.setMinWidth(56);
@@ -265,12 +271,19 @@ public class Game {
              boolean inPhrase = isInPhrase(x);
                     if (inPhrase) {
                         for (Text a : phraseLetters) {
-                            if (a.getText().equalsIgnoreCase(x.getText())) 
+                            if (a.getText().equalsIgnoreCase(x.getText())){ 
                                  a.setVisible(true);
+                            }
+                               
                         }
+                        
+                        if (isComplete()){
+                        	gameOver("You win!");
+                        }
+                        
                     } else {
                         count--;
-		        if (count == 5) 
+		        if (count == 5)
                             showHead();		 
                         else if (count == 4) 
                            showBody();	
@@ -282,10 +295,9 @@ public class Game {
                             showLeftLeg();
                         else if (count == 0) {
                             showRightLeg();
-                            System.out.println("You lose.");
                             count = 0;
-                            mediaPlayer.play();
-                            
+			mediaPlayer.play();
+                            gameOver("You lose!");
                         }
                     } // end if else sequence for letter checking				
             }
@@ -302,16 +314,8 @@ public class Game {
 		x.setVisible(false);
 	} 
 	for (Text x : text) {
-            if(x.getText().equals("_"))
-            {
-                x.setFont(Font.font("Algerian", FontWeight.EXTRA_BOLD, 50));
-                x.setFill(Color.WHITE);
-            }
-            else
-            {
-                x.setFont(Font.font("Algerian", FontWeight.EXTRA_BOLD, 45));
-                x.setFill(Color.WHITE);
-            }
+            x.setFont(Font.font("Algerian", FontWeight.EXTRA_BOLD, 45));
+            x.setFill(Color.WHITE);
 	}
     }
 	
@@ -324,6 +328,16 @@ public class Game {
 		return true;
 	}
 		return false;
+    }
+    
+    public static boolean isComplete(){
+    	
+    	for (Text a : phraseLetters){
+    		if (!a.isVisible()){
+    			return false;
+    		}
+    	}
+    	return true;
     }
 	
 	
@@ -354,4 +368,11 @@ public class Game {
     public static void showRightLeg() {
 	rightLeg.setVisible(true);
     }	
+    
+    private static void gameOver(String s){
+    	gameStage.close();
+    	Stage endStage = new Stage();
+    	EndScreen endScreen = new EndScreen(s);
+    	endScreen.start(endStage);
+    }
 }
