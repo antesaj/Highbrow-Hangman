@@ -159,7 +159,7 @@ public class Game {
         //TilePane. Two TilePanes to be Stacked.
         phraseUScore = new TilePane();
         phraseUScore.setAlignment(Pos.CENTER); 
-        phraseUScore.setHgap(13);
+        phraseUScore.setHgap(10);
         
         
         //TilePane. Add ArrayList to TilePane
@@ -302,8 +302,16 @@ public class Game {
 		x.setVisible(false);
 	} 
 	for (Text x : text) {
-            x.setFont(Font.font("Algerian", FontWeight.EXTRA_BOLD, 45));
-            x.setFill(Color.WHITE);
+            if(x.getText().equals("_"))
+            {
+                x.setFont(Font.font("Algerian", FontWeight.EXTRA_BOLD, 50));
+                x.setFill(Color.WHITE);
+            }
+            else
+            {
+                x.setFont(Font.font("Algerian", FontWeight.EXTRA_BOLD, 45));
+                x.setFill(Color.WHITE);
+            }
 	}
     }
 	
