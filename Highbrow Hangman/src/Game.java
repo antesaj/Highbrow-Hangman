@@ -1,11 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package playhangman;
-
-
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
@@ -13,7 +5,11 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
@@ -239,6 +235,8 @@ public class Game {
 	 */
 	
     public static void setButtonStyle(Button x) {
+    	Media sound = new Media(new File("losehangman.mp3").toURI().toString());
+    	MediaPlayer mediaPlayer = new MediaPlayer(sound);
         x.setMinHeight(56);
 	x.setMinWidth(56);
 	x.setStyle("-fx-padding: 8 15 15 15;\r\n" + 
@@ -286,6 +284,8 @@ public class Game {
                             showRightLeg();
                             System.out.println("You lose.");
                             count = 0;
+                            mediaPlayer.play();
+                            
                         }
                     } // end if else sequence for letter checking				
             }
