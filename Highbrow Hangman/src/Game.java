@@ -45,7 +45,7 @@ public class Game {
     BorderPane gamePane;
     
     private static int count;
-    private boolean running = true;
+    private static boolean running = true;
     private String choice, phrase;
     private Button a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z;
     private static ArrayList<Text> phraseLetters, UScore;
@@ -66,8 +66,16 @@ public class Game {
 	 */
 	
     public void init() {
-	gameStage = new Stage();
-	gameStage.setTitle("Highbrow Hangman 1.0");
+    	running = true;
+    	gameStage = new Stage();
+    	gameStage.setTitle("Highbrow Hangman 1.0");
+    	
+    	// Game sound loop
+    	Media inGameSound = new Media(new File("gameSound.mp3").toURI().toString());
+    	MediaPlayer gameSoundPlayer = new MediaPlayer(inGameSound);
+    	gameSoundPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+    	gameSoundPlayer.play();
+	
 	
         
         //Main Pane
@@ -76,7 +84,7 @@ public class Game {
         // Background image, set background
 	Image backgroundImage = new Image("background_image.jpg");
 	BackgroundImage bg = new BackgroundImage(backgroundImage, 
-                BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT, 
+    BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT, 
                 BackgroundPosition.DEFAULT, 
                 new BackgroundSize(800,800,true,true,true,true));
 	gamePane.setBackground(new Background(bg));
@@ -279,6 +287,7 @@ public class Game {
                         
                         if (isComplete()){
                         	gameOver("You win!");
+                        	running = false;
                         }
                         
                     } else {
@@ -296,7 +305,9 @@ public class Game {
                         else if (count == 0) {
                             showRightLeg();
                             count = 0;
-			mediaPlayer.play();
+                            running = false;
+                            
+                            mediaPlayer.play();
                             gameOver("You lose!");
                         }
                     } // end if else sequence for letter checking				
@@ -375,4 +386,9 @@ public class Game {
     	EndScreen endScreen = new EndScreen(s);
     	endScreen.start(endStage);
     }
+    
+    private boolean isRunning() {
+    	return running == true;
+    }
+    
 }
