@@ -3,17 +3,16 @@ import java.util.HashMap;
 public class LitDictionary extends HashMap {
 
 	private HashMap<Integer, String> dictionary;
-	
+
 	/*
-	 * Constructor creates and fills a dictionary full
-	 * of classic novel titles
+	 * Constructor creates and fills a dictionary full of classic novel titles
 	 */
-	
+
 	public LitDictionary() {
-		
+
 		dictionary = new HashMap<>();
-		
-		//TODO: add more entries
+
+		// TODO: add more entries
 		dictionary.put(0, "A Tale of Two Cities");
 		dictionary.put(1, "The Great Gatsby");
 		dictionary.put(2, "Oliver Twist");
@@ -40,15 +39,15 @@ public class LitDictionary extends HashMap {
 		dictionary.put(23, "Gullivers Travels");
 		dictionary.put(24, "Don Quixote");
 		dictionary.put(25, "Pride and Prejudice");
-		
+
 	}
-	
+
 	/*
 	 * Returns a random dictionary entry
 	 */
-	
+
 	public String getTitle() {
-		return dictionary.get((int)(Math.random() * dictionary.size()));
+		return dictionary.get((int) (Math.random() * dictionary.size()));
 	}
-	
+
 }
