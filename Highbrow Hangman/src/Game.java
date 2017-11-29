@@ -1,9 +1,5 @@
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package playhangman;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -183,7 +179,7 @@ public class Game {
 		// TilePane. Two TilePanes to be Stacked.
 		phraseUScore = new TilePane();
 		phraseUScore.setAlignment(Pos.CENTER);
-		phraseUScore.setHgap(13);
+		phraseUScore.setHgap(10);
 
 		// TilePane. Add ArrayList to TilePane
 		for (int i = 0; i < phraseLetters.size(); i++) {
@@ -327,10 +323,18 @@ public class Game {
 			if (!(x.getText().equals(" ")) && !(x.getText().equals("_")))
 				x.setVisible(false);
 		}
-		for (Text x : text) {
-			x.setFont(Font.font("Algerian", FontWeight.EXTRA_BOLD, 45));
-			x.setFill(Color.WHITE);
-		}
+            for (Text x : text) {
+                if(x.getText().equals("_"))
+                {
+                    x.setFont(Font.font("Algerian", FontWeight.EXTRA_BOLD, 52));
+                    x.setFill(Color.WHITE);
+                }
+                else
+                {
+                    x.setFont(Font.font("Algerian", FontWeight.EXTRA_BOLD, 45));
+                    x.setFill(Color.WHITE);
+                }
+            }
 	}
 
 	/*
